@@ -19,11 +19,6 @@ def home():
     return {"Hello": "World"}
 
 
-@app.get("/about")
-def about():
-    return {"about": "Me", "message": "hi"}
-
-
 @app.post("/users")
 def create_user(user: User):
     return user
@@ -39,14 +34,4 @@ def get_users(
         "settings": settings,
         "current_user": current_user,
         "db": db
-    }
-
-
-@app.get("/config")
-def config(
-    settings=Depends(get_settings)
-):
-    return {
-        "app": settings.APP_NAME,
-        "version": settings.APP_VERSION,
     }
