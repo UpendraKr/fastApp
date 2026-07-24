@@ -6,7 +6,8 @@ from sqlalchemy import select
 from app.dependencies.database import get_db
 from app.schemas.student import (
     StudentCreate,
-    StudentResponse
+    StudentResponse, 
+    StudentUpdate
 )
 from app.models.student import Student
 from app.services.student_service import StudentService
@@ -78,7 +79,29 @@ def get_student(
 ):
     stmt = select(Student).where(Student.id == student_id)
     student = db.execute(stmt).scalar_one_or_none()
+    if not student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
     return student
 
 
 
+@router.patch( "/{student_id}", response_model=StudentResponse )
+def update_student( 
+    student_id: int,
+    student: StudentUpdate,
+    db: Session = Depends(get_db)
+):
+    stmt = select(Student).where(Student.id == student_id)
+    db_student = db.execute(stmt).scalar_one_or_none()
+
+    if not db_student:
+        raise HTTPException(status_code=404, detail="Student not found")
+
+    for key, value in student.dict(exclude_unset=True).items():
+        setattr(db_student, key, value)
+
+    db.commit()
+    db.refresh(db_student)
+
+    return db_student

@@ -22,3 +22,8 @@ class StudentResponse(BaseModel):
     model_config = {
         "from_attributes": True     
     }
+
+
+class StudentUpdate(BaseModel):
+    name: str | None = None
+    age: int | None = None
