@@ -18,11 +18,7 @@ router = APIRouter(
 @router.post("/", response_model=StudentResponse, status_code=201)
 def create_student(
     student: StudentCreate,
-    db: Session = Depends(get_db),
     service: StudentService = Depends(get_student_service)
 ):
 
-    return service.create_student(
-        db,
-        student
-    )
+    return service.create_student(student)
