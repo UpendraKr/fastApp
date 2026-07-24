@@ -64,7 +64,6 @@ def get_student(
 
     return students;
 
-
 @router.get("/{student_id}", response_model=StudentResponse)
 def get_student(
     student_id: Annotated[

@@ -5,12 +5,15 @@ from app.dependencies.settings import get_settings
 from app.dependencies.current_user import get_current_user
 from app.dependencies.database import get_db
 from app.core.config import settings
+from app.core.handlers import register_exception_handlers
 from app.api.v1.student import router as student_router
 
 app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
 )
+
+register_exception_handlers(app)
 
 app.include_router(student_router, prefix="/api/v1")
 
