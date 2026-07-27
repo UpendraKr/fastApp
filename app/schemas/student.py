@@ -12,12 +12,17 @@ class StudentCreate(BaseModel):
         le=60
     )
 
+    user_id: int
+    department_id: int
+
 
 
 class StudentResponse(BaseModel):
     id: int
     name: str   
-    age: int    
+    age: int   
+    user_id: int
+    department_id: int 
     
     model_config = {
         "from_attributes": True     
@@ -27,3 +32,6 @@ class StudentResponse(BaseModel):
 class StudentUpdate(BaseModel):
     name: str | None = None
     age: int | None = None
+    user_id: int | None = None
+    department_id: int | None = None
+    
