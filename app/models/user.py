@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from sqlalchemy import String, Boolean, DateTime, Enum
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.database import Base
 from app.models.enum import UserRole
@@ -20,6 +20,8 @@ class User(Base):
 
     # new fields
     phone_number: Mapped[str | None] = mapped_column( String(20), nullable=True )
+
+    student = relationship( "Student", back_populates="user", uselist=False )
 
     password_hash: Mapped[str] = mapped_column(String(255))
 
