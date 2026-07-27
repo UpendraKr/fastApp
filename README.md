@@ -9,3 +9,10 @@ API Routers
 Middlewares    
 BackgroundTasks
 Authentication & Authorization
+    - Password hashing with passlib
+    - JWT (Access & Refresh Tokens)
+    - OAuth2 Password Flow
+    - Protected routes
+    - Role-Based Access Control (RBAC)
+    - Token refresh and logout
+    - Security best practices
