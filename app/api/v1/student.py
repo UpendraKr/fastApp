@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, Path, Query, HTTPException
+from fastapi import APIRouter, Depends, Path, Query, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 from typing import Annotated, Literal
 from sqlalchemy import select
@@ -22,10 +22,11 @@ router = APIRouter(
 @router.post("/", response_model=StudentResponse, status_code=201)
 def create_student(
     student: StudentCreate,
-    service: StudentService = Depends(get_student_service)
+    background_tasks: BackgroundTasks,
+    service: StudentService = Depends(get_student_service),
 ):
 
-    return service.create_student(student)
+    return service.create_student(student, background_tasks)
 
 
 @router.get("/", response_model=list[StudentResponse], status_code=200)

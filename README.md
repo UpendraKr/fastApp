@@ -7,3 +7,5 @@ Dependencies
 SQLAlchemy
 API Routers
 Middlewares    
+BackgroundTasks
+Authentication & Authorization
