@@ -12,6 +12,7 @@ from app.schemas.student import (
 from app.models.student import Student
 from app.services.student_service import StudentService
 from app.dependencies.student import get_student_service
+from app.dependencies.current_user import get_current_user
 
 router = APIRouter(
     prefix="/students",
@@ -31,6 +32,7 @@ def create_student(
 
 @router.get("/", response_model=list[StudentResponse], status_code=200)
 def get_student(
+    current_user = Depends( get_current_user ),
     db: Session = Depends(get_db),
     page: Annotated[int, Query(ge=1)] = 1,
     size: Annotated[int, Query(ge=1, le=100)] = 10,

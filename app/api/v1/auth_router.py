@@ -1,8 +1,11 @@
 from fastapi import APIRouter, Depends
-from app.schemas.user import UserResponse, UserRegister
+from app.schemas.user import UserResponse, UserRegister, TokenResponse, UserLogin
 from app.services.auth_service import AuthService
 
 from app.dependencies.auth import get_auth_service
+from app.dependencies.current_user import get_current_user
+
+from app.models.user import User
 
 
 router = APIRouter(
@@ -18,3 +21,19 @@ def register(
 ):
 
     return service.register(request)
+
+
+@router.post("/login", response_model=TokenResponse)
+def login(
+    request: UserLogin,
+    service: AuthService = Depends(get_auth_service)
+):
+    return service.login(request)
+
+
+# /api/v1/auth/me
+@router.get("/me", response_model=UserResponse)
+def me(
+    current_user: User = Depends(get_current_user)
+):
+    return current_user
