@@ -18,3 +18,4 @@ Authentication & Authorization
     - Security best practices
 
 Database Migrations with Alembic
+Testing - pytest

@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     PORT: int
 
     DATABASE_URL: str
+    TEST_DATABASE_URL: str
 
     SECRET_KEY: str 
     ALGORITHM: str = "HS256" 
